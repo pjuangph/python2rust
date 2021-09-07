@@ -26,7 +26,7 @@ pub fn monte_carlo_pi(iterations: u32) -> (f64, String) {
                 }
             }
 
-            inside
+            inside // return 
         }));
     }
 
