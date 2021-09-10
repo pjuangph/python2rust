@@ -1,17 +1,20 @@
 use std::rc::Rc;
 
+// unique_ptr => boxed::Box<T>  // only one instance can exist
+// shared_ptr => rc::Rc<T>      // reference count goes to 0 then deallocated
+// weak_ptr => rc::Weak<T>      // This is an observer type of pointer. It can be deleted from some place but still exists in others hence (weak) 
 fn main() {
     let rc_examples = "Rc examples".to_string();
     // new scope
     {
         println!("--- rc_a is created ---");
 
-        let rc_a: Rc<String> = Rc::new(rc_examples);
+        let rc_a: Rc<String> = Rc::new(rc_examples);    // Creates a stronger pointer to string
         println!("Reference Count of rc_a: {}", Rc::strong_count(&rc_a));
 
         // one more scope
         {
-            let rc_b: Rc<String> = Rc::clone(&rc_a);
+            let rc_b: Rc<String> = Rc::clone(&rc_a); // Strong pointer to another strong pointer
             println!("Ref Count of rc_b: {}", Rc::strong_count(&rc_b));
             println!("Ref Count of rc_a: {}", Rc::strong_count(&rc_a));
 
@@ -26,5 +29,6 @@ fn main() {
         println!("Reference Count of rc_a: {}", Rc::strong_count(&rc_a));
 
         println!("--- rc_a is dropped out of scope ---");
+        // This is fine because there's no circular references 
     }
 }

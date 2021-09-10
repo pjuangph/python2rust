@@ -1,4 +1,4 @@
-use ndarray::prelude::*;
+use ndarray::prelude::{array,Array1,Array};
 use std::f64::consts::PI;
 
 fn main() -> Result<(), ndarray::ShapeError> {
